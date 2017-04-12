@@ -1,4 +1,4 @@
-package com.example.t.perc;
+package com.example.t.velengestest;
 
 import android.app.ActivityManager;
 import android.content.Context;
@@ -22,8 +22,12 @@ import android.support.v4.app.Fragment;
 
 
 public class MainActivity extends AppCompatActivity {
+    static
+    {
+        System.loadLibrary("NativeLib");
+    }
 
-    public static final String EXTRA_MESSAGE = "com.example.t.perc.MESSAGE";
+    public static final String EXTRA_MESSAGE = "com.example.t.velengestest.MESSAGE";
     TextView totalTextView;
     EditText percentageText;
     EditText numberText;

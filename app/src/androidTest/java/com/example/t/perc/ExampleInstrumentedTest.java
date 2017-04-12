@@ -1,4 +1,4 @@
-package com.example.t.perc;
+package com.example.t.velengestest;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.t.perc", appContext.getPackageName());
+        assertEquals("com.example.t.velengestest", appContext.getPackageName());
     }
 }

@@ -10,7 +10,7 @@ set(OPENGL_LIB GLESv3)
 
 add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/OpenGL)
 
-set(SOURCE ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/NativeLib.cpp)
+set(SOURCE ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/JNIOpenGL.cpp ${CMAKE_CURRENT_SOURCE_DIR}/JNIGesture.cpp ${CMAKE_CURRENT_SOURCE_DIR}/JNIActivity.cpp)
 add_library(NativeLib SHARED
             ${SOURCE} ${HEADERS})
 			

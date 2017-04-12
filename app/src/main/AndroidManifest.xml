@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.t.perc">
+    package="com.example.t.velengestest">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Calc"
+        android:label="VelEngESTest"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
@@ -20,7 +20,7 @@
         </activity>
         <activity
             android:name=".SecondActivity"
-            android:label="Conv"
+            android:label="Converter"
             android:parentActivityName=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
 

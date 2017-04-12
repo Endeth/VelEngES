@@ -1,4 +1,4 @@
-package com.example.t.perc;
+package com.example.t.velengestest;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,12 +19,9 @@ public class SecondActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        int a = GameLibJNIWrapper.Test();
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-        if(a == 1) {
-            message = message.toUpperCase();
-        }
+
         TextView textView = (TextView) findViewById(R.id.textViewAct2);
         textView.setText(message);
 
