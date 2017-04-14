@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fno-rtti -fno-exceptions -Wa
 
 set(OPENGL_LIB GLESv3)
 
-add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/OpenGL)
+add_subdirectory (${CMAKE_CURRENT_SOURCE_DIR}/VelEngEs)
 
 set(SOURCE ${SOURCE} ${CMAKE_CURRENT_SOURCE_DIR}/JNIOpenGL.cpp ${CMAKE_CURRENT_SOURCE_DIR}/JNIGesture.cpp ${CMAKE_CURRENT_SOURCE_DIR}/JNIActivity.cpp)
 add_library(NativeLib SHARED

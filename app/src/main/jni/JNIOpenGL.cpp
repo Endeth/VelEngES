@@ -1,5 +1,5 @@
 #include <jni.h>
-#include "OpenGL/VelGLES.h"
+#include "VelEngEs/VelGLES.h"
 extern "C" {
 
 

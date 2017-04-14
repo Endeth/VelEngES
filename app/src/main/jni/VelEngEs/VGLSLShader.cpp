@@ -23,12 +23,11 @@ namespace Vel
 		glDeleteProgram(_program);
 	}
 
-	void VGLSLShader::LoadFromString(GLenum Type, const string & Source)
+	void VGLSLShader::LoadFromString(GLenum Type, const char* Source)
 	{
 		GLuint shader = glCreateShader(Type);
 
-		const char* ptmp = Source.c_str();
-		glShaderSource(shader, 1, &ptmp, NULL);
+		glShaderSource(shader, 1, &Source, NULL);
 
 		GLint status;
 		glCompileShader(shader);
@@ -45,24 +44,6 @@ namespace Vel
 			delete[] infoLog;
 		}
 		_shaders[_totalShaders++] = shader;
-	}
-
-	void VGLSLShader::LoadFromFile(GLenum Shader, const string & Filename) //TODO get resources from android
-	{
-		/*ifstream fp;
-		fp.open(Filename.c_str(), ios_base::in);
-		if (fp)
-		{
-			string line, buffer;
-			while (getline(fp, line))
-			{
-				buffer.append(line);
-				buffer.append("\r\n");
-			}
-			LoadFromString(Shader, buffer);
-		}
-		else
-			cerr << "Error loading shader: " << Filename << endl;*/
 	}
 
 	void VGLSLShader::CreateAndLinkProgram()

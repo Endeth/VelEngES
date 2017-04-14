@@ -28,10 +28,23 @@ namespace Vel {
 
     bool VelEngES::AddShaderProgram(const string & Name, const string & VertFilename, const string & FragFilename)
     {
+        std::string vertexShader = LoadAsset(VertFilename.c_str());
+        std::string fragmentShader = LoadAsset(FragFilename.c_str());
+        while(vertexShader.back() != '}') //TODO erase hack?
+            vertexShader.pop_back();
+        while(fragmentShader.back() != '}')
+            fragmentShader.pop_back();
+
         auto shader = _shaderPrograms.emplace(Name, make_shared<VGLSLShader>()).first->second;
-        shader->LoadFromFile(GL_VERTEX_SHADER, VertFilename);
-        shader->LoadFromFile(GL_FRAGMENT_SHADER, FragFilename);
+        shader->LoadFromString(GL_VERTEX_SHADER, vertexShader.c_str());
+        shader->LoadFromString(GL_FRAGMENT_SHADER, fragmentShader.c_str());
         shader->CreateAndLinkProgram();
+
+        __android_log_print(ANDROID_LOG_INFO, "OpenGL", "Shader:\n%s\n", vertexShader.c_str());
+        __android_log_print(ANDROID_LOG_INFO, "OpenGL", "Shader:\n%s\n", fragmentShader.c_str());
+
+        //delete[] vertexShader;
+        //delete[] fragmentShader;
 
         return true;
     }
@@ -88,6 +101,15 @@ namespace Vel {
         _mainCamera->Update();
     }
 
+    void VelEngES::InitAssetManager(JNIEnv* env, jobject &assetManager, std::string &&internalPath)
+    {
+        _assetManager = std::unique_ptr<VAssetManager>(new VAssetManager(AAssetManager_fromJava(env, assetManager), std::move(internalPath)));
+    }
+
+    char* VelEngES::LoadAsset(const char *fileName) {
+        return _assetManager->LoadAsset(fileName);
+    }
+
 
 
 //--------------------------------------------------------------------------------------------------
@@ -115,14 +137,10 @@ namespace Vel {
 
     void OnSurfaceCreated()
     {
-        shared_ptr<VGLSLShader> TestShader = make_shared<VGLSLShader>();
-        TestShader->LoadFromString(GL_VERTEX_SHADER, VERTEX_SHD);
-        TestShader->LoadFromString(GL_FRAGMENT_SHADER, FRAGMENT_SHD);
-
-        TestShader->CreateAndLinkProgram();
+        __android_log_print(ANDROID_LOG_INFO, "OpenGL", "SurfaceCreated");
+        VelEngES::Instance()->AddShaderProgram("BasicShader", "TestShader.vert", "TestShader.frag");
+        auto TestShader = VelEngES::Instance()->GetShader("BasicShader");
         TestShader->SetAttributes({ "vVertex", "vNormal", "vUV"}); //TODO fix vUV attribute
-
-        VelEngES::Instance()->AddShaderProgram("BasicShader", TestShader);
 
         std::shared_ptr<VTriangleMesh> triangleMeshTest = std::make_shared<VTriangleMesh>();
         triangleMeshTest->LoadVerticesOnly();
@@ -131,7 +149,7 @@ namespace Vel {
         modelTest->AddMesh(triangleMeshTest);
 
         GLint err = glGetError();
-        __android_log_print(ANDROID_LOG_INFO, "OpenGL", "Error:%d\n", err);
+        //__android_log_print(ANDROID_LOG_INFO, "OpenGL", "ASSETLOADING%x\n", testAsset.size());
 
         VelEngES::Instance()->CreateScene("TestScene");
         VelEngES::Instance()->AddModelToScene("TestScene", modelTest);

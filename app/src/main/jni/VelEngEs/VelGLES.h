@@ -3,11 +3,12 @@
 
 #include <unordered_map>
 #include <android/log.h>
+#include <vector>
 #include <map>
 #include <memory>
 #include <string>
-
 #include <android/log.h>
+#include <android/asset_manager_jni.h>
 #include <GLES3/gl3.h>
 #include "glm/glm.hpp"
 
@@ -21,7 +22,8 @@
 #include "VFramebuffer.h"
 #include "VLight.h"
 #include "VelEngUti.h"
-
+#include "VAssetManager.h"
+#include "VInput.h"
 
 namespace Vel {
     class VelEngES
@@ -50,9 +52,10 @@ namespace Vel {
         ScenePtr& GetScene(const std::string& name) { return _scenes[name]; }
         void AddModelToScene(const std::string & sceneName, const std::shared_ptr<VModel>& modelPtr);
         void AddLightSourceToScene(const std::string & sceneName, const std::shared_ptr<VLightSource>& lightSourcePtr);
+        char* LoadAsset(const char* fileName);
 
         void InitCamera();
-
+        void InitAssetManager(JNIEnv* env, jobject &assetManager, std::string &&internalPath);
         void HandleInput();
         void RenderScenes();
         void RenderFrame();
@@ -64,11 +67,12 @@ namespace Vel {
         std::map<std::string, std::shared_ptr<VScene>> _scenes;
 
         std::shared_ptr<VFreeCamera> _mainCamera;
-
+        std::shared_ptr<VAssetManager> _assetManager;
         static VelEngES* _instance;
 
         RendererPtr _renderer;
         VFrameClock _frameClock;
+
         bool _shouldRun{ true };
     };
 

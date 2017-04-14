@@ -15,6 +15,7 @@ public class OpenGLActivity extends AppCompatActivity
     private native void JNICleanUp();
     private GLSurfaceView glSurfaceView;
     private boolean rendererSet;
+    private AssetManager assetManager;
     VelGesture gesture;
 
     @Override
@@ -23,7 +24,7 @@ public class OpenGLActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_gl);
 
-        AssetManager assetManager = getAssets();
+        assetManager = getAssets();
         String pathToInternalDir = getFilesDir().getAbsolutePath();
 
         JNIInit(assetManager, pathToInternalDir);

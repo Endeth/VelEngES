@@ -39,8 +39,7 @@ namespace Vel
 	public:
 		VGLSLShader();
 		~VGLSLShader();
-		void LoadFromString(GLenum Type, const std::string& Source);
-		void LoadFromFile(GLenum Shader, const std::string& Filename);
+		void LoadFromString(GLenum Type, const char* Source);
 		void CreateAndLinkProgram();
 		void Activate();
 		void Deactivate();

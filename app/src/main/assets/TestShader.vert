@@ -10,4 +10,4 @@ void main()
 {
 	gl_Position = vec4(vVertex, 1.0);
 	verColor = vec4(vNormal, 1.0);
-};
+}
